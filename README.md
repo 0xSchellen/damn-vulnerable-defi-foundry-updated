@@ -27,6 +27,7 @@ SWC Registry - Smart Contract Weakness Classification and Test Cases.
 https://swcregistry.io/
 
 
+
 ## How To Play 🕹️
 
 1.  **Install Foundry**
@@ -56,6 +57,8 @@ git submodule update --init --recursive
 4. **Run your exploit for a challenge**
 
 forge test --match-test [NAME_OF_THE_TEST_WITH_YOUR_SOLUTION] --match-contract [CONTRACT_LEVEL_NAME]
+
+Exemplos:
 
 Test 1 - Unstoppable
 forge test --match-contract Unstoppable -vvvv
