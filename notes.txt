@@ -1,0 +1,17 @@
+Github Repo Commands
+git init -b main
+git add .
+git commit -m "initial commit"
+git remote add origin  https://github.com/0xSchellen/damn-vulnerable-defi-foundry-carlos
+git remote -v
+git push origin +main
+
+forge test --match-test [NAME_OF_THE_TEST_WITH_YOUR_SOLUTION] --match-contract [CONTRACT_LEVEL_NAME]
+
+forge test --match-test UnstopabbleLender.sol --match-contract UnstopabbleLender.sol
+
+
+rm -r .git
+forge init --force
+forge install openzeppelin/openzeppelin-contracts
+
