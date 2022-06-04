@@ -27,7 +27,6 @@ SWC Registry - Smart Contract Weakness Classification and Test Cases.
 https://swcregistry.io/
 
 
-
 ## How To Play 🕹️
 
 1.  **Install Foundry**
@@ -47,8 +46,8 @@ Advanced ways to use `foundryup`, and other documentation, can be found in the [
 
 2. **Clone This Repo and install dependencies**
 ``` 
-git clone https://github.com/0xSchellen/damn_vulnerable_defi_foundry.git
-cd damn_vulnerable_defi_foundry
+git clone https://github.com/0xSchellen/damn-vulnerable-defi-foundry-updated.git
+cd damn-vulnerable-defi-foundry-updated
 git submodule update --init --recursive
 
 ```
@@ -57,8 +56,6 @@ git submodule update --init --recursive
 4. **Run your exploit for a challenge**
 
 forge test --match-test [NAME_OF_THE_TEST_WITH_YOUR_SOLUTION] --match-contract [CONTRACT_LEVEL_NAME]
-
-Exemplos:
 
 Test 1 - Unstoppable
 forge test --match-contract Unstoppable -vvvv
