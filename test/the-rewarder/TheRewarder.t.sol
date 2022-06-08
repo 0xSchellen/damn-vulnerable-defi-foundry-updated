@@ -14,11 +14,12 @@ import {RewardToken}       from "../../src/the-rewarder/RewardToken.sol";
 import {AccountingToken}   from "../../src/the-rewarder/AccountingToken.sol";
 
 contract Executor {
-    DamnValuableToken liquidityToken;
-    FlashLoanerPool   flashLoanPool;
-    TheRewarderPool   rewarderPool;
-    RewardToken       rewardToken;
-    address owner;
+    DamnValuableToken internal liquidityToken;
+    FlashLoanerPool   internal flashLoanPool;
+    TheRewarderPool   internal rewarderPool;
+    RewardToken       internal rewardToken;
+    AccountingToken   internal accountingToken;
+    address internal owner;
 
     constructor(
         DamnValuableToken _liquidityToken, 
@@ -72,7 +73,6 @@ contract Executor {
 }
 
 contract TheRewarderTest is Test {
-
     uint256 internal constant TOKENS_IN_LENDER_POOL = 1_000_000e18;
     uint256 internal constant USER_DEPOSIT = 100e18;
 
@@ -148,13 +148,12 @@ contract TheRewarderTest is Test {
         vm.warp(block.timestamp + 5 days); // 5 days
 
         // Each depositor gets 25 reward tokens
-        // start from 1 because 0 is the attacker
         for (uint8 i; i < 4; i++) {
             vm.prank(users[i]);
             rewarderPool.distributeRewards();
             assertEq(
                 rewarderPool.rewardToken().balanceOf(users[i]),
-                25e18 // Each depositor gets 25 reward tokens
+                25e18
             );
         }
 
@@ -166,7 +165,6 @@ contract TheRewarderTest is Test {
         assertEq(rewarderPool.roundNumber(), 2);
     }
 
-    
     function test_Exploit() public {
         _exploit();
     }
@@ -197,6 +195,8 @@ contract TheRewarderTest is Test {
             rewarderPool.distributeRewards();
 
             uint256 rewards = rewardToken.balanceOf(users[i]);
+            console.log(users[i]);
+            console.log(rewards);
 
             // The difference between current and previous rewards balance should be lower than 0.01 tokens [ethers.utils.parseUnits('1', 16)]
             uint256 delta = rewards - 25 ether;
